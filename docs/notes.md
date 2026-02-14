@@ -151,6 +151,88 @@ Infrastructure as Code means defining your infrastructure using code rather than
 - Automated infrastructure provisioning and management
 - Easy to scale and modify infrastructure
 
+## CI/CD Pipelines in Practice
+
+### GitHub Actions
+
+**GitHub Actions** is a powerful CI/CD platform that automates your software workflows directly in your GitHub repository.
+
+#### How GitHub Actions Works
+
+- **Runs on push**: Automatically triggered when code is pushed to the repository
+- **Massive libraries**: Access to a vast marketplace of pre-built actions and integrations
+- **Version-controlled YAML configs**: All workflows are defined in YAML files that live in your repository
+- Complete transparency and traceability of your CI/CD configuration
+
+#### Workflow Structure
+
+A GitHub Actions **workflow** is the automated process you define:
+
+- **Lives in the repo**: Stored in the `.github/workflows/` directory
+- **It's just a YAML file**: Simple, readable configuration format
+- Version-controlled alongside your code
+
+#### Key Components of a Workflow
+
+Every workflow consists of three main components:
+
+##### 1. Triggers (When to Run)
+
+Triggers define when the workflow should execute:
+
+- `push`: When code is pushed to specific branches
+- `pull_request`: When a PR is opened, updated, or merged
+- `schedule`: Run on a schedule using cron syntax
+- `workflow_dispatch`: Manual trigger from GitHub UI
+- `release`: When a new release is published
+- Multiple triggers can be combined
+
+##### 2. Jobs (Set of Tasks)
+
+Jobs are collections of steps that execute on the same runner:
+
+- Jobs run in parallel by default (can be configured to run sequentially)
+- Each job runs in a fresh virtual environment
+- Jobs can depend on other jobs using `needs` keyword
+- Can run on different operating systems (Linux, Windows, macOS)
+- Share data between jobs using artifacts
+
+##### 3. Steps (Actual Commands and Actions)
+
+Steps are individual tasks within a job:
+
+- Can run shell commands directly
+- Can use pre-built actions from the GitHub marketplace
+- Execute sequentially within a job
+- Each step can have conditions to control execution
+- Steps share the same filesystem within a job
+
+#### YAML Configuration Information
+
+The workflow YAML file contains all the configuration:
+
+```yaml
+name: CI Pipeline
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: npm test
+```
+
+Key YAML elements:
+
+- **name**: Descriptive name for the workflow
+- **on**: Trigger events
+- **jobs**: Collection of jobs to run
+- **runs-on**: The type of machine to run the job on
+- **steps**: Sequential list of tasks
+- **uses**: Reference to a pre-built action
+- **run**: Shell command to execute
+
 ## Essential Skills for DevOps
 
 ### Cloud Providers
