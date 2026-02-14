@@ -13,3 +13,51 @@ catching problems before they explode. unit testing, end to end test, security t
 5- deployment
 deployments are automated in devops and we use tools for automated deployments, using strategies like canary deployment, blue green deployment, rolling deployment
 6- operate 
+ensuring the system continues to run reliably in real word situations, scaling up/down.
+7- monitoring
+gathering data about the server and monitor the technical and buiseness outcomes
+
+it's a loop!
+
+culture of constatnt learning and innovation
+
+
+you are not supposed to do everything 
+
+a devops engineer bridges the gap between the diff team and automate the boring tasks
+
+you are here to connect all the dots and keep thing running smoothly
+
+set up pipelines, integrate testing into the pipeline, automate deployments, codify the infrastructure and finally when the code is live you keep watch.
+
+
+heart beat of devops
+
+CI/CD
+
+what it actually mean
+
+coding - building - testing - deployment
+
+now make it into a convayerbelt 
+
+thats pipeline
+
+when ever there is a commit the pipeline run and your automated tests run and deployment happens if it clears them
+
+we right these pipelines 
+
+define each steps using code
+
+you orchestrate the continers with kubernaties
+
+Iac(infrastructure as code)
+
+know the cloud providers (learn one first others become easier) AWS
+
+bash/shell scripting and comfortable with js or python
+
+taking it step by step
+
+GIT & GITHUB:
+distributed version control system
