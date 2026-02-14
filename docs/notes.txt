@@ -74,3 +74,39 @@ triggers(when to run)
 jobs(set of tasks)
 steps(actual commands and actions)
 yaml information
+
+
+Docker:
+lunch box for application 
+it works every where
+provides stability
+enables development, packaging, execution in a unified environment
+self contained
+why bother?
+it makes apps faster and better in both development and deployment
+most comment help points 
+1- consistency
+2- isolation
+3- portability
+4- light weight & efficient 
+5- version control for applications
+6- scalable
+7- DevOps integration
+
+how does it work
+images & Container
+an image is a lightweight standalone executable package that includes everything that is needed to run an application
+and a container is a run able instance of an image 
+
+recipe is the image and the real cake is the container
+
+multiple container from one image
+
+docker volume is a presistent data storage mechanisim thta allows data to be shareable between host and container or multiple containers and ensures data presistance
+
+docker network is a communication channle it allows connetion with other containers
+
+docker workflow
+1- docker client
+2- docker host(docker daemon)
+3- docker registry(docker hub)

@@ -233,6 +233,156 @@ Key YAML elements:
 - **uses**: Reference to a pre-built action
 - **run**: Shell command to execute
 
+## Docker: Containerization for Modern Applications
+
+### What is Docker?
+
+Docker is like a **lunch box for your application** - it packages everything your application needs to run into a single, portable container. The key principle: **it works everywhere**.
+
+Docker provides **stability** and enables **development, packaging, and execution in a unified environment**. Each container is **self-contained**, meaning it includes the application code, runtime, system tools, libraries, and settings all in one package.
+
+### Why Bother with Docker?
+
+Docker makes apps **faster and better** in both development and deployment. It solves many common problems in software development and operations.
+
+#### The Most Common Help Points
+
+##### 1. Consistency
+
+- "It works on my machine" becomes "It works everywhere"
+- Same environment from development to production
+- Eliminates environment-related bugs
+- Developers, testers, and operations work with identical setups
+
+##### 2. Isolation
+
+- Applications run in isolated environments
+- No conflicts between different application dependencies
+- One container's issues don't affect others
+- Clean separation of concerns
+- Multiple versions of the same software can coexist
+
+##### 3. Portability
+
+- Run the same container on any system that supports Docker
+- Move seamlessly between local machine, test servers, and production
+- Cloud-agnostic deployment (AWS, Azure, GCP, on-premises)
+- Share containers easily across teams
+
+##### 4. Lightweight & Efficient
+
+- Containers share the host OS kernel
+- Much smaller than virtual machines
+- Fast startup times (seconds instead of minutes)
+- Lower resource overhead
+- Can run many containers on a single host
+
+##### 5. Version Control for Applications
+
+- Docker images are versioned and tagged
+- Easy rollback to previous versions
+- Track changes in your application environment
+- Reproducible builds at any point in time
+- Image layers enable efficient storage and updates
+
+##### 6. Scalable
+
+- Easily create multiple instances of containers
+- Scale up or down based on demand
+- Perfect for microservices architectures
+- Horizontal scaling made simple
+- Load balancing across containers
+
+##### 7. DevOps Integration
+
+- Seamless integration with CI/CD pipelines
+- Automated builds, tests, and deployments
+- Infrastructure as Code compatibility
+- Works perfectly with orchestration tools like Kubernetes
+- Enables continuous delivery practices
+
+### How Does Docker Work?
+
+Docker operates on two fundamental concepts: **Images** and **Containers**.
+
+#### Images & Containers
+
+**An image** is a lightweight, standalone, executable package that includes everything needed to run an application:
+
+- Application code
+- Runtime environment
+- System libraries
+- Dependencies
+- Configuration files
+- Environment variables
+
+**A container** is a runnable instance of an image:
+
+- Think of the **image as the recipe** and the **container as the real cake**
+- An image is static; a container is dynamic (running)
+- You can create **multiple containers from one image**
+- Each container runs independently with its own processes
+
+#### Docker Volumes
+
+**Docker volumes** are a persistent data storage mechanism that:
+
+- Allows data to be shareable between host and container
+- Enables data sharing between multiple containers
+- Ensures data persistence even when containers are stopped or deleted
+- Provides better performance than bind mounts
+- Can be managed independently of containers
+- Essential for databases and stateful applications
+
+#### Docker Networks
+
+**Docker networks** are communication channels that:
+
+- Allow connection between containers
+- Enable containers to communicate with the host
+- Provide network isolation for security
+- Support different network drivers (bridge, host, overlay)
+- Enable service discovery in multi-container applications
+- Facilitate microservices communication
+
+### Docker Workflow
+
+The Docker architecture consists of three main components:
+
+#### 1. Docker Client
+
+- The interface you interact with (command-line interface)
+- Where you run Docker commands (`docker run`, `docker build`, etc.)
+- Communicates with the Docker daemon
+- Can connect to remote Docker hosts
+
+#### 2. Docker Host (Docker Daemon)
+
+- The background service that manages Docker objects
+- Builds, runs, and distributes containers
+- Listens for Docker API requests
+- Manages images, containers, networks, and volumes
+- The core of Docker's functionality
+
+#### 3. Docker Registry (Docker Hub)
+
+- A repository for Docker images
+- **Docker Hub** is the default public registry
+- Store and distribute Docker images
+- Pull official images from trusted sources
+- Push your own images for sharing
+- Private registries available for enterprise use
+- Version management and image tagging
+
+**Typical workflow:**
+
+1. Write a Dockerfile defining your application environment
+2. Use Docker Client to build an image from the Dockerfile
+3. Docker Daemon creates the image and stores it locally
+4. Push the image to Docker Registry (Docker Hub) for sharing
+5. Pull the image on any machine where you want to run it
+6. Docker Daemon creates and runs containers from the image
+
 ## Essential Skills for DevOps
 
 ### Cloud Providers
