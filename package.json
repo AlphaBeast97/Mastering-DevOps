@@ -2,10 +2,10 @@
   "name": "application",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "application/index.js",
   "scripts": {
-    "run": "node index.js",
-    "test": "node test.js"
+    "run": "node application/index.js",
+    "test": "node application/test.js"
   },
   "keywords": [],
   "author": "",
