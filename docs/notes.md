@@ -383,6 +383,489 @@ The Docker architecture consists of three main components:
 5. Pull the image on any machine where you want to run it
 6. Docker Daemon creates and runs containers from the image
 
+### Essential Docker Commands
+
+#### Image Commands
+
+**Pull an image from Docker Hub:**
+
+```bash
+docker pull <image-name>:<tag>
+docker pull nginx:latest
+```
+
+**Build an image from a Dockerfile:**
+
+```bash
+docker build -t <image-name>:<tag> .
+docker build -t myapp:1.0 .
+```
+
+**List all images:**
+
+```bash
+docker image ls
+```
+
+**Remove an image:**
+
+```bash
+docker image rm <image-name>
+```
+
+**Push an image to Docker Hub:**
+
+```bash
+docker push <username>/<image-name>:<tag>
+docker push johndoe/myapp:1.0
+```
+
+**Tag an image:**
+
+```bash
+docker tag <image-id> <new-name>:<tag>
+docker tag myapp:1.0 myapp:latest
+```
+
+#### Container Commands
+
+**Run a container:**
+
+```bash
+docker run <image-name>
+docker run -d nginx                    # Run in detached mode (background)
+docker run -p 8080:80 nginx           # Map port 8080 (host) to 80 (container)
+docker run --name mycontainer nginx   # Give container a name
+docker run -v /host/path:/container/path nginx  # Mount a volume
+```
+
+**List running containers:**
+
+```bash
+# List all containers (including stopped)
+docker ps -a
+```
+
+**Stop a container:**
+
+```bash
+docker stop <container-id>
+# or
+docker stop <container-name>
+```
+
+**Start a stopped container:**
+
+```bash
+docker start <container-id>
+```
+
+**Restart a container:**
+
+```bash
+docker restart <container-id>
+```
+
+**Remove a container:**
+
+```bash
+docker rm <container-id>
+# Force remove a running container
+docker rm -f <container-id>
+```
+
+**View container logs:**
+
+```bash
+docker logs <container-id>
+# Follow logs in real-time
+docker logs -f <container-id>
+```
+
+**Execute a command in a running container:**
+
+```bash
+docker exec <container-id> <command>
+# Open an interactive shell
+docker exec -it <container-id> /bin/bash
+```
+
+#### Volume Commands
+
+**Create a volume:**
+
+```bash
+docker volume create <volume-name>
+```
+
+**List volumes:**
+
+```bash
+docker volume ls
+```
+
+**Remove a volume:**
+
+```bash
+docker volume rm <volume-name>
+```
+
+**Remove all unused volumes:**
+
+```bash
+docker volume prune
+```
+
+#### Network Commands
+
+**Create a network:**
+
+```bash
+docker network create <network-name>
+```
+
+**List networks:**
+
+```bash
+docker network ls
+```
+
+**Remove a network:**
+
+```bash
+docker network rm <network-name>
+```
+
+#### System Commands
+
+**View Docker system information:**
+
+```bash
+docker info
+```
+
+**View Docker disk usage:**
+
+```bash
+docker system df
+```
+
+**Clean up unused resources (containers, images, networks):**
+
+```bash
+docker system prune
+# Remove everything including volumes
+docker system prune -a --volumes
+```
+
+**Check Docker version:**
+
+```bash
+docker --version
+# Detailed version info
+docker version
+```
+
+#### Docker Compose Commands
+
+**Start services defined in docker-compose.yml:**
+
+```bash
+docker-compose up
+# Run in detached mode
+docker-compose up -d
+```
+
+**Stop services:**
+
+```bash
+docker-compose down
+```
+
+**View service logs:**
+
+```bash
+docker-compose logs
+# Follow logs
+docker-compose logs -f
+```
+
+**List running services:**
+
+```bash
+docker-compose ps
+```
+
+**Build or rebuild services:**
+
+```bash
+docker-compose build
+```
+
+**Execute a command in a service:**
+
+```bash
+docker-compose exec <service-name> <command>
+```
+
+### Dockerfile Commands
+
+A **Dockerfile** is a text file containing instructions to build a Docker image. Each instruction creates a layer in the image.
+
+#### FROM
+
+Sets the base image for your Docker image. This is always the first instruction in a Dockerfile.
+
+```dockerfile
+FROM ubuntu:22.04
+FROM node:18-alpine
+FROM python:3.11-slim
+```
+
+#### WORKDIR
+
+Sets the working directory for subsequent instructions. Creates the directory if it doesn't exist.
+
+```dockerfile
+WORKDIR /app
+WORKDIR /usr/src/app
+```
+
+#### COPY
+
+Copies files or directories from the host machine into the container image.
+
+```dockerfile
+COPY . .
+COPY package.json /app/
+COPY src/ /app/src/
+COPY --chown=user:group file.txt /app/
+```
+
+#### ADD
+
+Similar to COPY but with additional features (can extract tar files and download from URLs). Prefer COPY for simple file copying.
+
+```dockerfile
+ADD archive.tar.gz /app/
+ADD https://example.com/file.zip /app/
+ADD . /app
+```
+
+#### RUN
+
+Executes commands during the image build process. Creates a new layer with the results.
+
+```dockerfile
+RUN apt-get update && apt-get install -y curl
+RUN npm install
+RUN pip install -r requirements.txt
+RUN mkdir -p /app/data
+# Multiple commands in one RUN (reduces layers)
+RUN apt-get update && \
+    apt-get install -y python3 && \
+    apt-get clean
+```
+
+#### CMD
+
+Provides default command to run when container starts. Only one CMD instruction is used (last one wins).
+
+```dockerfile
+CMD ["npm", "start"]
+CMD ["python", "app.py"]
+CMD ["node", "server.js"]
+# Shell form
+CMD npm start
+```
+
+#### ENTRYPOINT
+
+Configures the container to run as an executable. Unlike CMD, ENTRYPOINT is not overridden by command-line arguments.
+
+```dockerfile
+ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Combined with CMD for default arguments
+ENTRYPOINT ["python"]
+CMD ["app.py"]
+```
+
+#### ENV
+
+Sets environment variables in the container.
+
+```dockerfile
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV API_KEY=your-api-key
+# Multiple variables
+ENV APP_HOME=/app \
+    APP_USER=appuser
+```
+
+#### ARG
+
+Defines build-time variables that can be passed during image build.
+
+```dockerfile
+ARG VERSION=1.0
+ARG BUILD_DATE
+ARG NODE_VERSION=18
+# Use in FROM
+ARG NODE_VERSION=18
+FROM node:${NODE_VERSION}
+```
+
+Build with: `docker build --build-arg VERSION=2.0 .`
+
+#### EXPOSE
+
+Declares which ports the container listens on at runtime. This is documentation only.
+
+```dockerfile
+EXPOSE 80
+EXPOSE 3000
+EXPOSE 8080/tcp
+EXPOSE 8080/udp
+```
+
+#### VOLUME
+
+Creates a mount point for persistent data storage.
+
+```dockerfile
+VOLUME /data
+VOLUME ["/var/log", "/var/db"]
+```
+
+#### USER
+
+Sets the user (and optionally group) to use when running the image.
+
+```dockerfile
+USER node
+USER www-data
+USER 1001
+USER appuser:appgroup
+```
+
+#### LABEL
+
+Adds metadata to the image as key-value pairs.
+
+```dockerfile
+LABEL version="1.0"
+LABEL description="My application"
+LABEL maintainer="you@example.com"
+```
+
+#### HEALTHCHECK
+
+Tells Docker how to test if the container is still working.
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost:8080/health || exit 1
+```
+
+#### SHELL
+
+Overrides the default shell used for the shell form of commands.
+
+```dockerfile
+SHELL ["/bin/bash", "-c"]
+SHELL ["powershell", "-command"]
+```
+
+#### ONBUILD
+
+Adds a trigger instruction to be executed when the image is used as a base for another build.
+
+```dockerfile
+ONBUILD COPY . /app
+ONBUILD RUN npm install
+```
+
+#### Example Dockerfile
+
+**Node.js Application:**
+
+```dockerfile
+# Use official Node.js image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application code
+COPY . .
+
+# Set environment variable
+ENV NODE_ENV=production
+
+# Expose port
+EXPOSE 3000
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Change ownership
+RUN chown -R nodejs:nodejs /app
+
+# Switch to non-root user
+USER nodejs
+
+# Start application
+CMD ["node", "server.js"]
+```
+
+**Python Application:**
+
+```dockerfile
+# Use Python base image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 8000
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Run the application
+CMD ["python", "main.py"]
+```
+
+**Best Practices:**
+
+- Use specific base image tags (avoid `latest`)
+- Minimize the number of layers by combining RUN commands
+- Use `.dockerignore` file to exclude unnecessary files
+- Run containers as non-root users for security
+- Use multi-stage builds for smaller images
+- Order instructions from least to most frequently changing
+- Clean up package manager caches in the same RUN command
+
 ## Essential Skills for DevOps
 
 ### Cloud Providers
