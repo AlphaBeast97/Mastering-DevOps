@@ -2,3 +2,14 @@ What is DevOps?
 
 The Infinity Pic here.
 
+1- plan 
+we start a project with a plan it should be feasible
+2- code
+it should be clean readable and well formatted
+3- build
+the step of compiling and getting dependencies. preparing code for the actual run 
+4- testing
+catching problems before they explode. unit testing, end to end test, security test, etc. all of this is automated. moving from devs to ops
+5- deployment
+deployments are automated in devops and we use tools for automated deployments, using strategies like canary deployment, blue green deployment, rolling deployment
+6- operate 
