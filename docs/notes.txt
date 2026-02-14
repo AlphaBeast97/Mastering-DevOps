@@ -61,3 +61,16 @@ taking it step by step
 
 GIT & GITHUB:
 distributed version control system
+
+CI/CD pipelines:
+github actions
+it runs on push
+massive libraries
+uses version controlled yaml configs
+it is called workflow
+it lives in the repo 
+it is just a yaml file
+triggers(when to run)
+jobs(set of tasks)
+steps(actual commands and actions)
+yaml information
