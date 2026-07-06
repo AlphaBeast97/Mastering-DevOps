@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: kubernetes-demo
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
