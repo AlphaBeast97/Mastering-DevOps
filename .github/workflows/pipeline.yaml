@@ -2,7 +2,7 @@ name: Ci_Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches: ["github-workflows"]
 
   workflow_dispatch:
 
