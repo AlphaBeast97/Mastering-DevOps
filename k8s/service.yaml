@@ -10,5 +10,5 @@ spec:
   ports:
     - protocol: TCP
       port: 3000 #Service port
-      targetport: 3000 # container port
+      targetPort: 3000 # container port
   type: NodePort # change to loadbalancer in cloud
