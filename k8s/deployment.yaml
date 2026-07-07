@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: "kubernetes-api"
-          image: "alphabeast97/kubernetes-api:latest"
+          image: "alphabeast97/masterdevops-api:latest"
           ports:
             - containerPort: 3000
           env:
