@@ -1,0 +1,38 @@
+/.idea/
+/.vscode/
+/.DS_Store
+
+# Environment files
+.env
+.env.*
+
+# Terraform
+/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Node / build outputs
+node_modules/
+dist/
+build/
+
+# OS / editor files
+Thumbs.db
+*.swp
