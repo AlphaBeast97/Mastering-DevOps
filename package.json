@@ -20,7 +20,12 @@
   },
   "homepage": "https://github.com/AlphaBeast97/Mastering-DevOps#readme",
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10"
   }
 }
