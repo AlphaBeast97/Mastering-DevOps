@@ -36,3 +36,6 @@ build/
 # OS / editor files
 Thumbs.db
 *.swp
+
+# Drizzle
+drizzle
