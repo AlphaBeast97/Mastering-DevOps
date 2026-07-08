@@ -43,3 +43,37 @@ export const createUser = async ({ name, email, role, password }) => {
     throw new Error("Error creating user");
   }
 };
+
+export const verifyPassword = async (password, hashedPassword) => {
+  try {
+    return await bcrypt.compare(password, hashedPassword);
+  } catch (e) {
+    logger.error(`Error verifying password: ${e.message}`);
+    throw new Error("Error verifying password");
+  }
+};
+
+export const signInUser = async ({ email, password }) => {
+  try {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const isValid = await verifyPassword(password, user.password);
+    if (!isValid) {
+      throw new Error("Invalid password");
+    }
+
+    const { password: _, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  } catch (e) {
+    logger.error(`Error signing in: ${e.message}`);
+    throw e;
+  }
+};
