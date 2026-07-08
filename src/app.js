@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import authRoute from "#routes/auth.route.js";
 
 const app = express();
 
@@ -22,5 +23,24 @@ app.get("/", (req, res) => {
   logger.info("Hello from Acquisitions!");
   res.send("Hello from Acquisitions!");
 });
+
+app.get("/health", (req, res) => {
+  logger.info("Health check OK!");
+  res.status(200).json({
+    status: "OK",
+    message: "Health check OK!",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  });
+});
+
+app.get("/api", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "API is running!",
+  });
+});
+
+app.use("/api/auth", authRoute);
 
 export default app;
